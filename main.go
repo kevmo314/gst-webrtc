@@ -49,13 +49,13 @@ func sdp(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	firstVideoTrack, err := webrtc.NewTrackLocalStaticSample(webrtc.RTPCodecCapability{MimeType: "video/vp8"}, "video", "pion2")
+	firstVideoTrack, err := webrtc.NewTrackLocalStaticSample(webrtc.RTPCodecCapability{MimeType: "video/h264"}, "video", "pion2")
 	if err != nil {
 		panic(err)
 	}
 	_, err = peerConnection.AddTrack(firstVideoTrack)
 
-	secondVideoTrack, err := webrtc.NewTrackLocalStaticSample(webrtc.RTPCodecCapability{MimeType: "video/vp8"}, "video", "pion3")
+	secondVideoTrack, err := webrtc.NewTrackLocalStaticSample(webrtc.RTPCodecCapability{MimeType: "video/h264"}, "video", "pion3")
 	if err != nil {
 		panic(err)
 	}
@@ -91,7 +91,7 @@ func sdp(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, signal.Encode(*peerConnection.LocalDescription()))
 
 	//	gst.CreatePipeline("opus", []*webrtc.TrackLocalStaticSample{audioTrack}, "rtmpsrc location=\"rtmp://localhost/live/test live=1\" ! flvdemux name=demux demux.audio ! queue ! decodebin").Start()
-	gst.CreatePipeline("vp8", []*webrtc.TrackLocalStaticSample{firstVideoTrack, secondVideoTrack}, "rtmpsrc location=\"rtmp://localhost/live/test live=1\" ! flvdemux name=demux demux.video").Start()
+	gst.CreatePipeline("h264", []*webrtc.TrackLocalStaticSample{firstVideoTrack, secondVideoTrack}, "rtmpsrc location=\"rtmp://localhost/live/test live=1\" ! flvdemux name=demux demux.video").Start()
 }
 
 func main() {
