@@ -91,7 +91,7 @@ func sdp(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, signal.Encode(*peerConnection.LocalDescription()))
 
 	//	gst.CreatePipeline("opus", []*webrtc.TrackLocalStaticSample{audioTrack}, "rtmpsrc location=\"rtmp://localhost/live/test live=1\" ! flvdemux name=demux demux.audio ! queue ! decodebin").Start()
-	gst.CreatePipeline("vp8", []*webrtc.TrackLocalStaticSample{firstVideoTrack, secondVideoTrack}, "rtmpsrc location=\"rtmp://localhost/live/test live=1\" ! flvdemux name=demux demux.video ! queue ! decodebin").Start()
+	gst.CreatePipeline("vp8", []*webrtc.TrackLocalStaticSample{firstVideoTrack, secondVideoTrack}, "rtmpsrc location=\"rtmp://localhost/live/test live=1\" ! flvdemux name=demux demux.video").Start()
 }
 
 func main() {
